@@ -1,0 +1,28 @@
+<?php
+require_once "conn.php";
+
+$q = new QueryBuilder($db);
+
+$q->table("yourtable")->update(
+    [
+        "databsecolumn1" => $value1,
+        "databsecolumn2" => $value2,
+    ]
+)->where(
+    "col",
+    QueryBuilder::EQUALS,
+    "val"/*, logical opirator default AND works on multiple whre usage*/
+)->execute();
+
+$q->table("yourtable")
+    ->select("*")
+    ->where("col", QueryBuilder::EQUALS, "value", QueryBuilder::OR)
+    ->where("col", QueryBuilder::NOT_EQUAL, null)
+    ->OrderBy("col2", QueryBuilder::DESC)
+    ->limit(10)
+    ->get();
+/**
+ *where method takes 3 main parameter and 1 optinal  
+ *
+ * 
+ */
